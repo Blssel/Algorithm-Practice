@@ -3,11 +3,11 @@
 __author__ = 'Zhiyu Yin'
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+class TreeNode(object):
+  def __init__(self, x):
+    self.val = x
+    self.left = None
+    self.right = None
 
 class Solution(object):
   def inorderTraversal(self,root):
@@ -24,6 +24,9 @@ class Solution(object):
       if root is not None:
         ans.append(root.val)
       if root.right is not None:
-        inorderTraversal(root.right)
+        self.inorderTraversal(root.right)
       return ans
-        
+       
+if __name__=='__main__':
+  root=TreeNode(5)
+  print Solution().inorderTraversal(root)
