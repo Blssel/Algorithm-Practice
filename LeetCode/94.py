@@ -10,21 +10,25 @@ class TreeNode(object):
     self.right = None
 
 class Solution(object):
+  ans_tmp=[]
   def inorderTraversal(self,root):
     """
       :type root: TreeNode
       :rtype: List[int]
     """
-    ans=[]
     if root is None:
-      return
+      ans=Solution.ans_tmp
+      Solution.ans_tmp=[]
+      return ans
     else:
       if root.left is not None:
-        inorderTraversal(root.left)
+        self.inorderTraversal(root.left)
       if root is not None:
-        ans.append(root.val)
+        Solution.ans_tmp.append(root.val)
       if root.right is not None:
         self.inorderTraversal(root.right)
+      ans= Solution.ans_tmp
+      Solution.ans_tmp=[]
       return ans
        
 if __name__=='__main__':
