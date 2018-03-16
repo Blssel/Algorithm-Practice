@@ -8,6 +8,7 @@ class TreeNode(object):
     self.left = None
     self.right = None
 
+# 递归方式
 class Solution(object):
   def inorderTraversal(self,root):
     """
