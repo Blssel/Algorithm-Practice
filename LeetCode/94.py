@@ -1,13 +1,12 @@
-#!/usr/bin/env python
 
 __author__ = 'Zhiyu Yin'
 
 # Definition for a binary tree node.
-# class TreeNode(object):
-#   def __init__(self, x):
-#     self.val = x
-#     self.left = None
-#     self.right = None
+class TreeNode(object):
+  def __init__(self, x):
+    self.val = x
+    self.left = None
+    self.right = None
 
 class Solution(object):
   def inorderTraversal(self,root):
@@ -19,16 +18,16 @@ class Solution(object):
     self.recursive_traversal(root,ans)
     return ans
 
-  def recusive_traversal(root,ans)
+  def recursive_traversal(self, root, ans):
     if root is None:
       return ans
     else:
       if root.left is not None:
-	recursive_traversal(root.left)
+	recursive_traversal(root.left, ans)
       if root is not None:
         ans.append(root.val)
       if root.right is not None:
-        recursive_traversal(root.right)
+        recursive_traversal(root.right, ans)
        
 if __name__=='__main__':
   root=TreeNode(5)
