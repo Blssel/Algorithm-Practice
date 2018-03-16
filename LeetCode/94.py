@@ -23,11 +23,11 @@ class Solution(object):
       return ans
     else:
       if root.left is not None:
-	recursive_traversal(root.left, ans)
+	self.recursive_traversal(root.left, ans)
       if root is not None:
         ans.append(root.val)
       if root.right is not None:
-        recursive_traversal(root.right, ans)
+        self.recursive_traversal(root.right, ans)
        
 if __name__=='__main__':
   root=TreeNode(5)
