@@ -22,3 +22,29 @@ public:
     return helper(nums, 0, dp);
   }
 };
+
+
+
+// 改用贪心，题目还要好好琢磨
+class Solution {
+public:
+
+  bool canJump(vector<int>& nums) {
+    int begin = 0;
+    int farthest = 0;
+    while (true) {
+            //cout<<"###"<<endl;
+      int farthest_ = farthest;
+      for (int i = begin; i <= farthest; i++) {
+        farthest_ = max(farthest_, i + nums[i]);
+                //cout<<farthest_<<endl;
+        if (farthest_ >= nums.size()-1) return true;
+      }
+      if (farthest_ == farthest) return false;
+      else {
+        begin = farthest + 1;
+        farthest = farthest_;
+      }
+    }
+  }
+};
