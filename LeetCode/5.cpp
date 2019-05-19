@@ -48,3 +48,51 @@ public:
     }
 };
 
+
+
+
+
+
+
+// 第二次写
+class Solution {
+public:
+  string longestPalindrome(string s) {
+    if (s.size() == 0) return s;
+    vector<vector<int>> dp(s.size(), vector<int>(s.size(), 1));
+    int longest = 1;
+    int l=0, r=0;
+
+    for (int i = 0; i < s.size() - 1; i++) {
+      if (s[i] == s[i + 1]) {
+        dp[i][i + 1] = 2;
+        if (longest < dp[i][i + 1]) {
+          longest = dp[i][i + 1];
+          l = i;
+          r = i + 1;
+        }
+      }
+      else dp[i][i + 1] = 0;
+    }
+
+    for (int len = 2; len <= s.size() - 1; len++) {
+      for (int i = 0; i < s.size() - 1; i++) {
+        int j = i + len;
+        if (j > s.size() - 1)
+          break;
+        else {
+          if (dp[i + 1][j - 1] == 0 || s[i] != s[j]) dp[i][j] = 0;
+          else {  // (s[i] == s[j]) 
+            dp[i][j] = dp[i + 1][j - 1] + 2;
+            if (longest < dp[i][j]) {
+              longest = dp[i][j];
+              l = i;
+              r = j;
+            }
+          }
+        }
+      }
+    }
+    return s.substr(l, longest);
+  }
+};
