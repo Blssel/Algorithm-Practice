@@ -1,37 +1,41 @@
-//Definition for a binary tree node.
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
-
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
 public:
-  TreeNode* copy(TreeNode* T, TreeNode* c) {
-    if (T != NULL) {
-      TreeNode* n = new TreeNode(T->val);
+    vector<TreeNode*> helper(int start, int end, vector<vector<vector<TreeNode*>>>& dp) {
+        vector<TreeNode*> res;
+        if (start > end) {
+            res.push_back(NULL);
+            return res;
+        }
+        if (!dp[start][end].empty()) {
+            return dp[start][end];
+        }
+        for (int i = start; i <= end; i++) {
+            vector<TreeNode*> left_nodes = helper(start, i - 1, dp);
+            vector<TreeNode*> right_nodes = helper(i + 1, end, dp);
+            for (auto l : left_nodes) {
+                for (auto r : right_nodes) {
+                    TreeNode* node = new TreeNode(i);
+                    node->left = l;
+                    node->right = r;
+                    res.push_back(node);
+                }
+            }
+        }
+        dp[start][end] = res;
+        return res;
     }
-  }
-  TreeNode* helper(int begin, int end, TreeNode* T, vector<TreeNode*>& res) {
-    if (begin < end) {
-      TreeNode* c;
-      copy(T, c);
-      res.push_back(c);
+    vector<TreeNode*> generateTrees(int n) {
+        if (n == 0) return vector<TreeNode*>(0);
+        vector<vector<vector<TreeNode*>>> dp(n + 1, vector<vector<TreeNode*>>(n + 1));
+        return helper(1, n, dp);
     }
-    for (int i = begin; i <= end; i++) {
-      TreeNode* root = new TreeNode(i);
-      root->left = helper(begin, i - 1, T);
-      root->right = helper(i + 1, end, T);
-    }
-  }
-  vector<TreeNode*> generateTrees(int n) {
-    for (int i = 0; i <= n; i++) {
-      TreeNode* root = new TreeNode(i);
-      root->left = helper(0, i - 1, root);
-      root->right = helper(i + 1, n, root);
-    }
-
-    helper(1, n, NULL);
-  }
 };
